@@ -12,6 +12,10 @@ let btn = document.querySelector('.check');
 let btnAgain = document.querySelector(".again");
 let message = document.querySelector(".message");
 
+const displayMessage = function(message) {
+    document.querySelector(".message").textContent = message;
+}
+
 
 btn.addEventListener('click', function() {
     const guess = Number(document.querySelector('.guess').value);
@@ -21,7 +25,7 @@ btn.addEventListener('click', function() {
 
     // When there is no input
     if (!guess) {
-        message.textContent = 'No number !';
+        displayMessage("No number !");
 
         // When player wins
     } else if (guess === secretNumber) {
@@ -33,20 +37,16 @@ btn.addEventListener('click', function() {
             highScore = score;
             document.querySelector(".highscore").textContent = highScore;
         }
-        message.textContent = "Correct number !";
+        displayMessage("Correct number !")
 
         // When player doesn't win
     } else if (guess !== secretNumber) {
         if (score > 1) {
-            if (guess < secretNumber) {
-                message.textContent = "Number is too low..."
-            } else {
-                message.textContent = "Number is too high..."
-            }
+            displayMessage(guess < secretNumber ? "Too low" : "Too high")
             score--;
             document.querySelector(".score").textContent = score;
         } else {
-            message.textContent = "You lost the game !";
+            displayMessage("You lost the game !")
             document.querySelector(".score").textContent = 0;
         }
 
@@ -62,5 +62,5 @@ btnAgain.addEventListener("click", function() {
     document.querySelector("body").style.backgroundColor = "#222";
     document.querySelector(".number").style.width = "15rem";
     document.querySelector(".guess").value = "";
-    message.textContent = "Start guessing...";
+    displayMessage("Start guessing...");
 })
