@@ -52,9 +52,9 @@ let job = "developer";
 const year = 1986;
 
 // Functions
-console.log(addDecl(2, 2));
-console.log(addExpr(2, 2));
-console.log(addArrow(2, 2));
+console.log(addDecl(2, 2)); // Only one we can use before declaration
+console.log(addExpr(2, 2)); // Basically a variable
+console.log(addArrow(2, 2)); // Basically a variable
 
 function addDecl(a, b) {
     return a + b
@@ -63,3 +63,16 @@ const addExpr = function(a, b) {
     return a + b
 }
 const addArrow = (a, b) => a + b;
+var addArrow2 = (a, b) => a + b; // is gonna be undefined
+
+
+// Example
+if (!numberOfProduct) {
+    deleteShoppingCart()
+}
+
+var numberOfProduct = 10; // is gonna be undefined because of hoisting, so falsy...
+
+function deleteShoppingCart() {
+    console.log("All products deleted!")
+}
