@@ -129,14 +129,49 @@ const f = jonas.calcAgeFunc;
 // Regular functions VS Arrow funtion
 
 console.clear();
+
+// var firstName = "François"; 
 const doe = {
     firstName: "John",
     year: 1990,
     calcAge: function() {
         console.log("This inside a method : ", this)
         console.log("The age is : ", 2037 - this.year)
+        const isMillenial = function() {
+            console.log(this.year >= 1981 && this.year <= 1996);
+        }
+        //isMillenial(); // Regular function call, then this keyword is undefined, even if inside a method...
+
+        // Solution 1
+        let self = this; // workaround the issue (pre ES6)
+        const isMillenial2 = function() {
+            console.log(self.year >= 1981 && self.year <= 1996)
+        }
+        isMillenial2();
+
+        // Solution 2 
+        const isMillenial3 = () => console.log(this.year >= 1981 && this.year <= 1996)
+        isMillenial3();
     },
-    greet: () => console.log(`Hello ${this.firstName}`)
+    greet: () => console.log(`Hello ${this.firstName}`) // this.firstName is undefined or equal to "François". (arrow function specific)
+    // Change to normal function and it's working !
 }
 doe.calcAge();
 doe.greet();
+
+// !!!!! Never use arrow function for a method (especially if you need the this keyword) !!!!!!
+
+
+// arguments keyword
+const addExpr2 = function(a, b) {
+    console.log(arguments)
+    return a + b;
+}
+addExpr2(2, 4);
+addExpr2(2, 4, 8, 15, 45);
+
+var addArrow3 = (a, b) => {
+    console.log(arguments)
+    return a + b
+};
+// addArrow3(2, 5); // arguments keyword doesn't exist in arrow functions
